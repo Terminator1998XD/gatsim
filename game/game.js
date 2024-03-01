@@ -50,7 +50,7 @@ function Init(){
 	}
 
 	iframeApi({
-			appid: 33236,
+			appid: 33272,
 			getLoginStatusCallback: function(status) {},
 			userInfoCallback: function(info) {console.log(info);},
 			adsCallback: adsCallback
