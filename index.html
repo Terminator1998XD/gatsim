@@ -6,7 +6,7 @@
     <title translate="Gat Simulator">Симулятор Ствола</title>
     <script src="libs/jquery.js"></script>
 	  <script src="libs/howler.js"></script>
-    <script src="https://yandex.ru/games/sdk/v2"></script>
+    <script type="text/javascript" src="//vkplay.ru/app/33272/static/mailru.core.js"></script>
 		<script src="YandexSDKFunctions.js"></script>
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
@@ -38,7 +38,6 @@
 <script src="game/path.js"></script>
 <script src="game/level.js"></script>
 <script src="game/enemy.js"></script>
-<script src="game/moregames.js"></script>
 
 <div id="scoreblock" style="display:none"><span id="score">0</span></div>
 <div id="hud" style="display:none"></div>
@@ -98,7 +97,6 @@
 					</div>
 					</div>
 					<div class="opt">
-					<p><button translate="Recommended games" onclick="moregames('#deadscr')">Рекомендованные игры</button></p>
 					<span class="settings"></span>
 					</div>
 					</div>
@@ -117,15 +115,15 @@
 						<div class="br gun_right"><img src="textures/arr.png"></img></div>
 					</div>
           <button onclick="TogglePause()" translate="Continue">Продолжить</button>
-					<p><button translate="Recommended games" onclick="moregames('#pausem')">Рекомендованные игры</button></p>
 					</div>
 					<div class="opt">
 					<span class="settings"></span>
 					</div>
 					</div>
       </div>
-			<div class="content" id="moregames" style="display:none">
-				<p><button translate="Back" onclick="moregamesback()">Назад</button></p>
+			<div style="position: absolute; right: 0; top: 0;">
+				<p><button onclick="setlang('ru')">Русский</button></p>
+				<p><button onclick="setlang('en')">English</button></p>
 			</div>
 </div>
 

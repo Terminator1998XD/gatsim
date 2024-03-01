@@ -9,14 +9,28 @@ var isMobile = false;
 window.addEventListener('resize', resizeCanvas);
 
 function resizeCanvas() {
-    canvas.width = isMobile ? window.innerWidth : Math.min(600,window.innerWidth);
-    canvas.height = window.innerHeight;
-    window.scaleX = canvas.width/1200;
-    window.scaleY = canvas.height/1600;
-
+  const defaultWidth = 1200;
+  const defaultHeight = 1600;
     if(!isMobile){
+
+      // Выбрать минимальное значение для масштаба, чтобы поместить канвас в окне
+      const scale = Math.min(window.innerWidth / defaultWidth, window.innerHeight / defaultHeight);
+
+      // Установить новую ширину и высоту канваса
+      canvas.width = defaultWidth * scale;
+      canvas.height = defaultHeight * scale;
+
+      /*canvas.width = isMobile ? window.innerWidth : Math.min(600,window.innerWidth);
+      canvas.height = window.innerHeight;*/
       canvas.style.marginLeft = `calc(50% - ${canvas.width / 2}px)`;
     }
+    else {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.scaleX = canvas.width/defaultWidth;
+    window.scaleY = canvas.height/defaultHeight;
 }
 
 var LMouseDown = false;

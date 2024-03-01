@@ -31,38 +31,60 @@ function Init(){
 	$('.overlay').show();
 
 	hideTexts();
-	if(window['YaGames'] != null){
-		YaGames
-    .init()
-    .then(ysdk => {
-        console.log('Yandex SDK initialized');
-        window.ysdk = ysdk;
-				window.isMobile = !ysdk.deviceInfo.isDesktop() && ysdk.deviceInfo._type != null;
-				window.isPC = !window.isMobile;
-				window.lang = ysdk.environment.i18n.lang;
-				$('#scoreblock').show();
+	const queryString = window.location.search.slice(1);
+  if (!queryString) {
+      return {};
+  }
 
-				if(window.isPC){
-					$('body').css({'background-image': 'url("textures/htmlback.jpg")','background-size':'cover'});
-					const neonColor = 'rgb(255, 255, 255)'; // Здесь вы можете выбрать цвет неона
-					const border = '1px solid white';
-					$(canvas).css({
-					  'box-shadow': `0 0 10px ${neonColor}`,
-					  'border-left': border,
-					  'border-right': border
-					});
-				}
+  const paramsArray = queryString.split('&');
+  window.paramsObject = {};
 
-				translateBlocks();
-				fillSettings();
-				resizeCanvas();
-    });
-	} else {
-		window.isMobile = false;
+  paramsArray.forEach(param => {
+      const [key, value] = param.split('=');
+      paramsObject[key.toLowerCase()] = value.toLowerCase();
+  });
+
+	if (typeof iframeApi === 'undefined') {
+			console.log('Cannot find iframeApi function, are we inside an iframe?');
+			return;
+	}
+
+	iframeApi({
+			appid: 33236,
+			getLoginStatusCallback: function(status) {},
+			userInfoCallback: function(info) {console.log(info);},
+			adsCallback: adsCallback
+	}).then(function(api){
+		window.ysdk = api;
+		console.log('VK SDK initialized');
+		window.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+		if(localStorage['savelang'] != null) {
+			window.lang = localStorage['savelang'];
+		}
+		else window.lang = paramsObject.lang == 'ru_ru' ? 'ru' : 'en';//ysdk.environment.i18n.lang;
+
+		$('#scoreblock').show();
+		window.isPC = !window.isMobile;
+		if(isPC){
+			$('body').css({'background-image': 'url("textures/htmlback.jpg")','background-size':'cover'});
+			const neonColor = 'rgb(255, 255, 255)'; // Здесь вы можете выбрать цвет неона
+			const border = '1px solid white';
+			$(canvas).css({
+				'box-shadow': `0 0 10px ${neonColor}`,
+				'border-left': border,
+				'border-right': border
+			});
+		}
+
+		scoreTxt = TXT('score');
+		scoreText = scoreTxt + 0;
 		translateBlocks();
 		fillSettings();
 		resizeCanvas();
-	}
+	}, function(code){
+		console.log(code);
+	});
 }
 
 function PlayClick(){
@@ -70,7 +92,6 @@ function PlayClick(){
 	$('.overlay').hide();
 	OnPause = false;
 	playMusic();
-	if(isMobile) ysdk.adv.hideBannerAdv();
 	setTimeout(function(){
 		P.Reload = 0;
 	},250);
@@ -112,8 +133,6 @@ function NewGameCallback(){
 	$('.overlay').hide();
 	$('#deadscr').hide();
 	$('#pausem').hide();
-
-	if(isMobile) ysdk.adv.hideBannerAdv();
 
 	dim.map = [pathobj];
 	window.score = 0;

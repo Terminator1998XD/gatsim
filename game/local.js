@@ -1,4 +1,4 @@
-var txt = {
+var __localisationTexts__ = {
   "ru":{
     res:'У вас закончились патроны',
     reborn: "Последний шанс",
@@ -18,7 +18,7 @@ var txt = {
 }
 
 function TXT(id){
-  return txt[lang][id];
+  return __localisationTexts__[lang][id];
 }
 
 function hideTexts(){
@@ -26,11 +26,27 @@ function hideTexts(){
 }
 
 function translateBlocks(){
+
+  if(translateBlocks.flag){
     $('[translate]').each(function() {
-    if(lang != 'ru'){
-      var value = $(this).attr('translate');
+      $(this).attr('translate_ru',$(this).html());
+    });
+    translateBlocks.flag = false;
+  }
+
+    $('[translate]').each(function() {
+      const value = $(this).attr(lang == 'ru' ? 'translate_ru':'translate');
       $(this).html(value);
-    }
     $(this).show();
   });
+}
+
+translateBlocks.flag = true;
+
+function setlang(l){
+  window.lang = l;
+  translateBlocks();
+  scoreTxt = TXT('score');
+  AddScore(0);
+  localStorage['savelang'] = l;
 }
