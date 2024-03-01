@@ -88,13 +88,15 @@ function Init(){
 }
 
 function PlayClick(){
-	document.getElementById("startGame").remove();
-	$('.overlay').hide();
-	OnPause = false;
-	playMusic();
-	setTimeout(function(){
-		P.Reload = 0;
-	},250);
+	yabanner(function(){
+		document.getElementById("startGame").remove();
+		$('.overlay').hide();
+		OnPause = false;
+		playMusic();
+		setTimeout(function(){
+			P.Reload = 0;
+		},250);
+	});
 }
 
 function TogglePause(){
@@ -154,7 +156,7 @@ function AddScore(_score){
 }
 
 function NewGame(){
-	NewGameCallback();
+	yabanner(NewGameCallback);
 }
 
 let reslist = [

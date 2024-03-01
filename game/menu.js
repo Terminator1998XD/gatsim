@@ -14,25 +14,20 @@ function Menu(){
   $('.enemy_image img').attr('src','textures/' + cur_entypes[0].texture + '.png');
 
   $('.gun_left').click(function(){
-    yabanner(function(){
       Menu.weapon--;
       if(Menu.weapon < 0) Menu.weapon = guns.length - 1;
       weaponSwitch();
       PlaySound('weaponswitch');
-    });
   });
 
   $('.gun_right').click(function(){
-    yabanner(function(){
       Menu.weapon++;
       if(Menu.weapon >= guns.length) Menu.weapon = 0;
       weaponSwitch();
       PlaySound('weaponswitch');
-    });
   });
 
   $('.enemy_left').click(function(){
-    yabanner(function(){
       Menu.enemy--;
       if(Menu.enemy < 0) Menu.enemy = entypes.length - 1;
       cur_entypes = entypes[Menu.enemy];
@@ -41,11 +36,9 @@ function Menu(){
       $('.enemy_image img').attr('src','textures/' + cur_entypes[0].texture + '.png');
       localStorage['enemy'] = Menu.enemy;
       PlaySound('weaponswitch');
-    });
   });
 
   $('.enemy_right').click(function(){
-    yabanner(function(){
       Menu.enemy++;
       if(Menu.enemy >= entypes.length) Menu.enemy = 0;
       cur_entypes = entypes[Menu.enemy];
@@ -54,6 +47,5 @@ function Menu(){
       $('.enemy_image img').attr('src','textures/' + cur_entypes[0].texture + '.png');
       localStorage['enemy'] = Menu.enemy;
       PlaySound('weaponswitch');
-    });
   });
 }
