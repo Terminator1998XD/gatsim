@@ -21,6 +21,16 @@ html, body {
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
+#loading{
+  position: absolute;
+  z-index: 5;
+  top:50%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 25vh;
+  color: white;  
+}
+
 .game{
   display: block;
   width: auto;

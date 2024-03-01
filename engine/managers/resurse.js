@@ -2,10 +2,13 @@
     var resourceCache = {};
     var loading = [];
     var readyCallbacks = [];
+    var len = 0;
+    var compl = 0;
 
     // Load an image url or an array of image urls
     function load(urlOrArr) {
         if(urlOrArr instanceof Array) {
+          len = urlOrArr.length;
             urlOrArr.forEach(function(url) {
                 _load(url);
             });
@@ -23,6 +26,9 @@
             var img = new Image();
             img.onload = function() {
                 resourceCache[url.toLowerCase()] = img;
+
+                compl++;
+                $('#loading').text(compl+" / "+len)ж
 
                 if(isReady()) {
                     readyCallbacks.forEach(function(func) { func(); });

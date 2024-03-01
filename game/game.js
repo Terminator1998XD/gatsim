@@ -16,6 +16,8 @@ function Init(){
 
 	loadBackgroundTrackPosition();
 
+	$('#loading').remove();
+
 	let rec = localStorage['record777'];
 
   if(rec != null && rec > 0){
