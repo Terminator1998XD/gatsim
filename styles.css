@@ -27,8 +27,8 @@ html, body {
   top:50%;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 25vh;
-  color: white;  
+  font-size: 15vh;
+  color: white;
 }
 
 .game{
