@@ -28,7 +28,7 @@
                 resourceCache[url.toLowerCase()] = img;
 
                 compl++;
-                $('#loading').text(compl+" / "+len);
+                $('#loading').text(parseInt(compl/len*100) + "%");
 
                 if(isReady()) {
                     readyCallbacks.forEach(function(func) { func(); });
